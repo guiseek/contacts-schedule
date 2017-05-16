@@ -1,0 +1,17 @@
+<aside class="panel panel-default">
+  <div class="panel-heading">
+    Etiquetas
+  </div>
+  <contact-tags
+    contact-tags="$ctrl.contactTags"
+    on-select="$ctrl.selectTag($event);">
+  </contact-tags>
+  <div class="panel-body">
+    <contact-tag-detail
+      tag="$ctrl.tag"
+      on-save="$ctrl.createNewTag($event);"
+      on-delete="$ctrl.deleteTag($event);"
+      on-update="$ctrl.updateTag($event);">
+    </contact-tag-detail>
+  </div>
+</aside>

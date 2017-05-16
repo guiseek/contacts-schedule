@@ -1,0 +1,19 @@
+
+// Utils
+// Contains all mixins, functions and helpers
+// @import "utils";
+
+
+// Components
+// Contains each isolated component. Should ideally mimic the AngularJS component structure
+// @import "components";
+
+
+// Layout
+// Contains styling elements for the larger 'core' modules like loading bars / indicators, wrappers, containers, etc...
+@import "layout";
+
+
+// Vendors
+// Contains all the 3rd party styles
+// @import "vendors";

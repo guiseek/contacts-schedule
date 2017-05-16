@@ -1,0 +1,22 @@
+<table class="table table-hover">
+  <tr
+    ng-repeat="item in $ctrl.contactTags"
+    ui-sref-active-eq="active">
+    <td>
+      <a
+        ui-sref="contacts({ filter: item.state })">
+        <i ng-class="[item.icon]"></i>
+        <span ng-bind="item.label"></span>
+      </a>
+    </td>
+    <td class="text-right">
+      <button
+        type="button"
+        class="btn btn-default btn-xs"
+        ng-show="item.state != 'none'"
+        ng-click="$ctrl.selectTag(item)">
+          <i class="glyphicon glyphicon-pencil"></i>
+      </button>
+    </td>
+  </tr>
+</table>

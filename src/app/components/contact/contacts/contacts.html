@@ -1,0 +1,14 @@
+<div class="list-group">
+  <a class="list-group-item" ng-repeat="contact in $ctrl.filteredContacts">
+    <contact
+      contact="contact"
+      on-select="$ctrl.goToContact($event);">
+    </contact>
+  </a>
+</div>
+<div
+  class="alert alert-warning"
+  ng-if="!$ctrl.filteredContacts.length">
+  <i class="glyphicon glyphicon-alert"></i>
+  Não tem ninguém aqui...
+</div>
