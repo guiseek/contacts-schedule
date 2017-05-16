@@ -7,7 +7,7 @@
         </h3>
         <div
           class="form-group"
-          data-ng-class="{'has-error':contactDetailForm.name.$invalid && contactDetailForm.name.$dirty}">
+          data-ng-class="{'has-error':contactDetailForm.name.$invalid && contactDetailForm.name.$dirty, 'has-success':contactDetailForm.name.$valid}">
           <label>
             Name
           </label>
@@ -29,7 +29,7 @@
         </div>
         <div
           class="form-group"
-          data-ng-class="{'has-error':contactDetailForm.email.$invalid && contactDetailForm.email.$dirty}">
+          data-ng-class="{'has-error':contactDetailForm.email.$invalid && contactDetailForm.email.$dirty, 'has-success':contactDetailForm.email.$valid}">
           <label>
             Email
           </label>
@@ -38,6 +38,7 @@
             name="email"
             class="form-control"
             length-check
+            required="required"
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',

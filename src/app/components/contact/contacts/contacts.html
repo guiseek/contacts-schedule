@@ -1,4 +1,5 @@
-<div class="list-group">
+<div class="list-group"
+  ng-if="$ctrl.filteredContacts.length">
   <a class="list-group-item" ng-repeat="contact in $ctrl.filteredContacts">
     <contact
       contact="contact"

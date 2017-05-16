@@ -1,0 +1,25 @@
+.alert {
+  border-radius: 5px;
+  background-color: transparent;
+  border-width: 2px;
+}
+.alert-success {
+  color: $success-color;
+  border-color: $success-color;
+}
+.alert-primary {
+  color: $primary-color;
+  border-color: $primary-color;
+}
+.alert-info {
+  color: $info-color;
+  border-color: $info-color;
+}
+.alert-warning {
+  color: $warning-color;
+  border-color: $warning-color;
+}
+.alert-danger {
+  color: $danger-color;
+  border-color: $danger-color;
+}

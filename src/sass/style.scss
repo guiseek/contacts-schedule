@@ -6,13 +6,15 @@
 
 // Components
 // Contains each isolated component. Should ideally mimic the AngularJS component structure
-// @import "components";
+@import "components";
 
 
 // Layout
 // Contains styling elements for the larger 'core' modules like loading bars / indicators, wrappers, containers, etc...
 @import "layout";
 
+
+@import "elements";
 
 // Vendors
 // Contains all the 3rd party styles

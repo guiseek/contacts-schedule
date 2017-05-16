@@ -1,0 +1,7 @@
+.list-group-item {
+  border-width: 2px;
+  margin-bottom: -2px;
+  &:hover {
+    cursor: pointer;
+  }
+}

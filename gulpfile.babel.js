@@ -22,6 +22,7 @@ const paths = {
   distDocs: './docs/build',
   docs: './docs/app/*.js',
   scripts: [`${root}/app/**/*.js`, `!${root}/app/**/*.spec.js`],
+  tests: `${root}/app/**/*.spec.js`,
   styles: `${root}/sass/*.scss`,
   templates: `${root}/app/**/*.html`,
   modules: [

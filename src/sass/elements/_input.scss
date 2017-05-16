@@ -1,0 +1,22 @@
+.form-control,
+.has-success .form-control,
+.has-error .form-control {
+  border-width: 2px;
+  box-shadow: none;
+  &:active, &:focus {
+    box-shadow: none;
+  }
+}
+
+.has-success .form-control {
+  border-color: $success-color;
+  &:focus {
+    border-color: $success-color;
+  }
+}
+.has-error .form-control {
+  border-color: $danger-color;
+  &:focus {
+    border-color: $danger-color;
+  }
+}
