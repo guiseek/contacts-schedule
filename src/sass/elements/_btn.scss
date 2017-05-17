@@ -2,6 +2,8 @@
   border-radius: 5px;
   background: transparent;
   border-width: 2px;
+  letter-spacing: 1px;
+  font-weight: 400;
   &:hover {
     color: #FFF;
   }
@@ -15,7 +17,7 @@
 }
 .btn-group > .btn {
   border-width: 0px;
-  &:hover {
+  &:hover, &:focus, &:active {
     border-radius: 0px;
     border-width: 0px;
   }

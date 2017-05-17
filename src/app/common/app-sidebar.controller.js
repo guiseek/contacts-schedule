@@ -11,7 +11,7 @@ function AppSidebarController(TagService, cfpLoadingBar) {
       .then(tags => {
         ctrl.contactTags = tags
         ctrl.contactTags.unshift({
-          label: 'Limpar filtro',
+          label: 'Todos contatos',
           state: 'none',
           icon: 'glyphicon glyphicon-tag'
         })

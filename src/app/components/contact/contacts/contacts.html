@@ -1,4 +1,4 @@
-<div class="list-group"
+<!--<div class="list-group"
   ng-if="$ctrl.filteredContacts.length">
   <a class="list-group-item" ng-repeat="contact in $ctrl.filteredContacts">
     <contact
@@ -6,6 +6,14 @@
       on-select="$ctrl.goToContact($event);">
     </contact>
   </a>
+</div>-->
+<div class="row" ng-if="$ctrl.filteredContacts.length">
+  <div class="col-md-6" ng-repeat="contact in $ctrl.filteredContacts">
+    <contact
+      contact="contact"
+      on-select="$ctrl.goToContact($event);">
+    </contact>
+  </div>
 </div>
 <div
   class="alert alert-warning"

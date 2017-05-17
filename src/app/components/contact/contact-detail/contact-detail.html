@@ -6,17 +6,17 @@
           Dados pessoais
         </h3>
         <div
-          class="form-group"
-          data-ng-class="{'has-error':contactDetailForm.name.$invalid && contactDetailForm.name.$dirty, 'has-success':contactDetailForm.name.$valid}">
+          class="form-group">
           <label>
-            Name
+            Nome
           </label>
           <input
             type="text"
             name="name"
             class="form-control"
-            length-check
-            required="required"
+            validate-class="{success: 'has-success', 'error': 'has-error'}"
+            minlength="8"
+            required
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -28,8 +28,29 @@
             ng-model="$ctrl.contact.name">
         </div>
         <div
-          class="form-group"
-          data-ng-class="{'has-error':contactDetailForm.email.$invalid && contactDetailForm.email.$dirty, 'has-success':contactDetailForm.email.$valid}">
+          class="form-group">
+          <label>
+            Telefone
+          </label>
+          <input
+            type="text"
+            name="phone"
+            class="form-control"
+            validate-class="{success: 'has-success', 'error': 'has-error'}"
+            minlength="8"
+            required
+            ng-change="$ctrl.updateContact();"
+            ng-model-options="{
+              'updateOn': 'default blur',
+              'debounce': {
+                'default': 250,
+                'blur': 0
+              }
+            }"
+            ng-model="$ctrl.contact.phone">
+        </div>
+        <div
+          class="form-group">
           <label>
             Email
           </label>
@@ -37,7 +58,7 @@
             type="email"
             name="email"
             class="form-control"
-            length-check
+            validate-class="{success: 'has-success', 'error': 'has-error'}"
             required="required"
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
@@ -57,7 +78,6 @@
             type="text"
             name="jobTitle"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -76,7 +96,6 @@
             type="text"
             name="location"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -100,7 +119,6 @@
             type="text"
             name="facebook"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -113,13 +131,30 @@
         </div>
         <div class="form-group">
           <label>
+            Google+
+          </label>
+          <input
+            type="text"
+            name="google"
+            class="form-control"
+            ng-change="$ctrl.updateContact();"
+            ng-model-options="{
+              'updateOn': 'default blur',
+              'debounce': {
+                'default': 250,
+                'blur': 0
+              }
+            }"
+            ng-model="$ctrl.contact.social.google">
+        </div>
+        <div class="form-group">
+          <label>
             GitHub
           </label>
           <input
             type="text"
             name="github"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -138,7 +173,6 @@
             type="text"
             name="twitter"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -157,7 +191,6 @@
             type="text"
             name="linkedin"
             class="form-control"
-            length-check
             ng-change="$ctrl.updateContact();"
             ng-model-options="{
               'updateOn': 'default blur',
@@ -171,18 +204,19 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-9">
         <contact-tag
           tag="$ctrl.contact.tag"
           on-change="$ctrl.tagChange($event);">
         </contact-tag>
       </div>
-      <div class="col-md-2 text-right">
-        <div class="navbar" ng-if="$ctrl.isNewContact">
+      <div class="col-md-3 text-right">
+        <div ng-if="$ctrl.isNewContact">
           <button
             class="btn btn-success"
             ng-disabled="contactDetailForm.$invalid"
             ng-click="$ctrl.saveContact();">
+            <i class="fa fa-check"></i>
             Salvar contato
           </button>
         </div>
@@ -190,6 +224,7 @@
           <button
             class="btn btn-danger"
             ng-click="$ctrl.deleteContact();">
+            <i class="fa fa-trash-o"></i>
             Apagar contato
           </button>
         </div>

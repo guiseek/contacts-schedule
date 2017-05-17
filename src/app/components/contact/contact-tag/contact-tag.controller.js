@@ -4,6 +4,7 @@ function ContactTagController(TagService) {
     TagService.getTagList().$loaded()
       .then(tags => ctrl.tags = tags)
   }
+
   ctrl.updateTag = tag => {
     ctrl.onChange({
       $event: {

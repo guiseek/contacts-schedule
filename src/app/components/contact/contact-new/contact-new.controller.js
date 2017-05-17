@@ -4,10 +4,12 @@ function ContactNewController(ContactService, $state) {
     ctrl.contact = {
       name: '',
       email: '',
+      phone: '',
       job: '',
       location: '',
       social: {
         facebook: '',
+        google: '',
         github: '',
         twitter: '',
         linkedin: ''

@@ -1,3 +1,7 @@
 .panel {
   border-width: 2px;
+  border-color: $default-color;
+}
+.panel .panel-heading {
+  font-weight: 500;
 }

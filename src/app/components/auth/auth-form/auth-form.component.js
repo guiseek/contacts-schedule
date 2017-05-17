@@ -2,6 +2,7 @@ let authForm = {
   bindings: {
     user: '<',
     button: '@',
+    reset: '@',
     message: '@',
     onSubmit: '&'
   },

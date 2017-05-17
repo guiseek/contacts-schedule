@@ -1,0 +1,19 @@
+.table.contact-tags tbody > tr > td:first-child {
+  padding: 0px;
+}
+.table.contact-tags tbody > tr > td:first-child > a {
+  display: block;
+  padding: 8px;
+}
+.table.contact-tags tr > td > a {
+  color: $info-color;
+  &:hover {
+    text-decoration: none;
+  }
+}
+.table.contact-tags tr.active > td > a {
+  color: $success-color;
+}
+.table.contact-tags tr.active > td {
+  background-color: transparent;
+}
