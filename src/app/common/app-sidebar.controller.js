@@ -1,11 +1,8 @@
 function AppSidebarController(TagService, cfpLoadingBar) {
   let ctrl = this
-  ctrl.srcTag = {
-    label: '',
-    state: ''
-  }
+  ctrl.srcTag = {}
   ctrl.tag = angular.copy(ctrl.srcTag)
-  let resetTag = tag => ctrl.tag = ctrl.srcTag
+  let resetTag = tag => ctrl.tag = angular.copy(ctrl.srcTag)
   ctrl.$onInit = () => {
     TagService.getTagList().$loaded()
       .then(tags => {

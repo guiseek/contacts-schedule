@@ -1,0 +1,13 @@
+contacts .modal-dialog {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+  box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
+}
+contacts .modal-dialog.modal-md {
+  max-width: 450px;
+}
+contacts .modal-dialog > button {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+}

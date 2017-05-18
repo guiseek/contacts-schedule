@@ -1,0 +1,21 @@
+<div class="navbar">
+  <div class="input-group">
+    <span class="input-group-addon" id="search">
+      <i class="glyphicon glyphicon-search"></i>
+    </span>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Buscar contato..."
+      aria-describedby="search"
+      ng-change="$ctrl.updateSearch()"
+      ng-model-options="{
+        'updateOn': 'default blur',
+        'debounce': {
+          'default': 600,
+          'blur': 0
+        }
+      }"
+      ng-model="$ctrl.search">
+  </div>
+</div>

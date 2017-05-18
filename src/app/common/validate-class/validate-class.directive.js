@@ -7,9 +7,7 @@ function validateClass() {
       return function ($scope, $element, $attrs, $ctrl) {
         if (!!$attrs.validateClass) {
           let classes = $scope.$eval($attrs.validateClass)
-          $scope.$watch(() => {
-            return $ctrl.$viewValue
-          }, newValue => {
+          $scope.$watch(newValue => {
             if ($ctrl.$dirty) {
               if ($ctrl.$invalid) {
                 $parent.addClass(classes.error)

@@ -1,7 +1,9 @@
 var contact = {
   bindings: {
     contact: '<',
-    onSelect: '&'
+    onSelect: '&',
+    onOpen: '&',
+    content: '@'
   },
   templateUrl: './contact.html',
   controller: 'ContactController'

@@ -1,15 +1,6 @@
-.contact .page-header {
-  margin: 0px 0px 20px;
-}
-contact .panel-body {
-  min-height: 140px;
-}
 contact .btn-group {
   border-width: 2px 0 0 0;
   border-radius: 0;
-}
-contact .panel[ng-click] {
-  cursor: pointer;
 }
 contact .panel-default > .panel-heading {
   border-width: 2px;
@@ -22,4 +13,11 @@ contact .btn-group .btn {
 contact .btn-group .btn:not(:first-child):last-child {
   border-left-width: 2px;
   border-color: $default-color;
+}
+contact .panel-body p {
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -1,17 +1,13 @@
-<!--<div class="list-group"
-  ng-if="$ctrl.filteredContacts.length">
-  <a class="list-group-item" ng-repeat="contact in $ctrl.filteredContacts">
-    <contact
-      contact="contact"
-      on-select="$ctrl.goToContact($event);">
-    </contact>
-  </a>
-</div>-->
+<contacts-search
+  on-update="$ctrl.updateSearch($event)">
+</contacts-search>
 <div class="row" ng-if="$ctrl.filteredContacts.length">
-  <div class="col-md-6" ng-repeat="contact in $ctrl.filteredContacts">
+  <div class="col-md-6" ng-repeat="contact in $ctrl.filteredContacts | filter: $ctrl.search">
     <contact
       contact="contact"
-      on-select="$ctrl.goToContact($event);">
+      content="half"
+      on-select="$ctrl.goToContact($event)"
+      on-open="$ctrl.openModalContact($event)">
     </contact>
   </div>
 </div>
@@ -19,5 +15,15 @@
   class="alert alert-warning"
   ng-if="!$ctrl.filteredContacts.length">
   <i class="glyphicon glyphicon-alert"></i>
-  Não tem ninguém aqui...
+  Nenhum contato foi marcado com esta etiqueta ainda...
+</div>
+<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="modalContact">
+  <div class="modal-dialog modal-md" role="document">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <contact
+      contact="$ctrl.contactView"
+      content="full"
+      on-select="$ctrl.goToContact($event)">
+    </contact>
+  </div>
 </div>
