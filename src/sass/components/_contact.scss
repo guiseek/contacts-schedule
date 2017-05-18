@@ -2,7 +2,7 @@
   margin: 0px 0px 20px;
 }
 contact .panel-body {
-  min-height: 120px;
+  min-height: 140px;
 }
 contact .btn-group {
   border-width: 2px 0 0 0;
@@ -14,6 +14,10 @@ contact .panel[ng-click] {
 contact .panel-default > .panel-heading {
   border-width: 2px;
   border-color: $default-color;
+}
+contact .btn-group .btn {
+  padding: 5px 8px;
+  font-size: 24px;
 }
 contact .btn-group .btn:not(:first-child):last-child {
   border-left-width: 2px;
