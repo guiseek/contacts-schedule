@@ -12,19 +12,9 @@ function ContactsController($filter, $state) {
     $('#modalContact').modal('show')
   }
   ctrl.goToContact = event => {
-    if (ctrl.contactView) {
-      ctrl.contactView = null
-      $('#modalContact').modal('hide')
-      $('#modalContact').on('hidden.bs.modal', function (e) {
-        $state.go('contact', {
-          id: event.contactId
-        })
-      })
-    } else {
-      $state.go('contact', {
-        id: event.contactId
-      })
-    }
+    $state.go('contact', {
+      id: event.contactId
+    })
   }
 }
 

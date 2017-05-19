@@ -1,11 +1,16 @@
 function ContactsSearchController() {
   let ctrl = this
-  ctrl.$onInit = () => {
-  }
   ctrl.updateSearch = () => {
     ctrl.onUpdate({
       $event: {
         search: ctrl.search
+      }
+    })
+  }
+  ctrl.clear = () => {
+    ctrl.onClear({
+      $event: {
+        search: ''
       }
     })
   }

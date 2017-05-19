@@ -1,3 +1,6 @@
 contacts-search .input-group .input-group-addon + .form-control {
   border-color: $default-color;
 }
+contacts-search .input-group .input-group-addon + .form-control + .input-group-addon {
+  cursor: pointer;
+}

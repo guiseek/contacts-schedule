@@ -1,13 +1,26 @@
-contacts .modal-dialog {
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
-  -moz-box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
-  box-shadow: 0px 0px 5px 0px rgba(255,255,255,1);
-}
 contacts .modal-dialog.modal-md {
   max-width: 450px;
 }
-contacts .modal-dialog > button {
-  position: absolute;
-  top: 8px;
-  right: 14px;
+contacts contact[content="full"] .panel {
+  margin-bottom: -2px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+contacts .modal-close {
+  margin-bottom: -2px;
+  padding: 6px 12px 2px;
+  font-size: 24px;
+  background-color: #fff;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+contacts contact[content="full"] .panel {
+  margin-bottom: -2px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+contacts contact[content="half"] .panel-body .col-md-5,
+contacts contact[content="half"] .panel-body .col-md-7 {
+  font-size: 18px;
+  width: 100%;
 }

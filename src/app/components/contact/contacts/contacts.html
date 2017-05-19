@@ -1,8 +1,10 @@
 <contacts-search
-  on-update="$ctrl.updateSearch($event)">
+  search="$ctrl.search"
+  on-update="$ctrl.updateSearch($event)"
+  on-clear="$ctrl.updateSearch($event)">
 </contacts-search>
 <div class="row" ng-if="$ctrl.filteredContacts.length">
-  <div class="col-md-6" ng-repeat="contact in $ctrl.filteredContacts | filter: $ctrl.search">
+  <div class="col-md-3" ng-repeat="contact in $ctrl.filteredContacts | filter: $ctrl.search">
     <contact
       contact="contact"
       content="half"
@@ -17,13 +19,17 @@
   <i class="glyphicon glyphicon-alert"></i>
   Nenhum contato foi marcado com esta etiqueta ainda...
 </div>
-<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="modalContact">
+<div class="modal fade" id="modalContact" tabindex="-1" role="dialog" aria-labelledby="modalContact" data-backdrop="false">
   <div class="modal-dialog modal-md" role="document">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <contact
       contact="$ctrl.contactView"
       content="full"
       on-select="$ctrl.goToContact($event)">
     </contact>
+    <div class="text-center">
+      <button type="button" class="modal-close btn btn-default pull-right" data-dismiss="modal" aria-label="Close">
+        <i class="glyphicon glyphicon-remove text-warning"></i>
+      </button>
+    </div>
   </div>
 </div>

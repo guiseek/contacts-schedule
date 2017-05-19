@@ -6,6 +6,9 @@ contact .panel-default > .panel-heading {
   border-width: 2px;
   border-color: $default-color;
 }
+contact .panel-default > .panel-heading > .fa {
+  margin-top: 2px;
+}
 contact .btn-group .btn {
   padding: 5px 8px;
   font-size: 24px;
@@ -20,4 +23,11 @@ contact .panel-body p {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+contact .panel-body p > a,
+contact .panel-body p > a > span  {
+  font-size: 14px;
+}
+contact .panel-body .col-md-5:last-child > p {
+  margin-bottom: 0;
 }

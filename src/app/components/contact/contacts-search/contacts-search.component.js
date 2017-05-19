@@ -1,5 +1,6 @@
 let contactsSearch = {
   bindings: {
+    search: '<',
     onUpdate: '&',
     onClear: '&'
   },

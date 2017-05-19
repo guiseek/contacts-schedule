@@ -1,23 +1,28 @@
 <div class="panel panel-default">
-  <div class="panel-heading" ng-bind="$ctrl.contact.name"></div>
+  <div class="panel-heading">
+    <span ng-bind="$ctrl.contact.name"></span>
+    <i class="fa fa-user pull-right"></i>
+  </div>
   <div class="panel-body">
     <div class="row">
-      <div class="col-sm-5 col-xs-12">
+      <div class="col-md-5 col-xs-12">
         <p>
           <i class="fa fa-phone"></i>
-          <span ng-bind="$ctrl.contact.phone || 'Sem telefone'"></span>
+          <a href="tel:{{$ctrl.contact.phone}}" ng-bind="$ctrl.contact.phone || 'Sem telefone'"></a>
         </p>
       </div>
-      <div class="col-sm-7 col-xs-12">
+      <div class="col-md-7 col-xs-12">
         <p>
           <i class="fa fa-envelope-o"></i>
-          <span ng-bind="$ctrl.contact.email || 'Sem email'"></span>
+          <a href="https://mail.google.com/mail/?view=cm&fs=1&to='{{$ctrl.contact.name}}' <{{$ctrl.contact.email}}>" target="_blank" ng-bind="$ctrl.contact.email || 'Sem email'"></a>
         </p>
       </div>
-      <div ng-if="$ctrl.content == 'full'" class="col-sm-5 col-xs-12">
-        <p>
-          <i class="fa fa-tag"></i>
-          <span ng-bind="$ctrl.contact.tag.label || 'Sem etiqueta'"></span>
+      <div class="col-md-5 col-xs-12">
+        <p class="text-right">
+          <a ui-sref="contacts({ filter: $ctrl.contact.tag.state })">
+            <i class="fa fa-tag"></i>
+            <span ng-bind="$ctrl.contact.tag.label || 'Sem etiqueta'"></span>
+          </a>
         </p>
       </div>
       <div ng-if="$ctrl.content == 'full'" class="col-sm-7 col-xs-12">
