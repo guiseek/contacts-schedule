@@ -3,7 +3,8 @@ let appNav = {
     user: '<',
     onLogout: '&'
   },
-  templateUrl: './app-nav.html'
+  templateUrl: './app-nav.html',
+  controller: 'AppNavController'
 }
 
 angular

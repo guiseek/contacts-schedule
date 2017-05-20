@@ -31,10 +31,22 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+.input-group-btn > .btn {
+  padding: 5px 12px;
+}
+.input-group-btn:last-child > .btn {
+  margin-left: -2px;
+}
 .btn-default {
   color: $default-color;
   border-color: $default-color;
   &:hover, &:focus, &:active {
+    border: 2px solid $default-color;
+    background-color: $default-color;
+  }
+}
+.btn-default[disabled] {
+  &:hover {
     border: 2px solid $default-color;
     background-color: $default-color;
   }

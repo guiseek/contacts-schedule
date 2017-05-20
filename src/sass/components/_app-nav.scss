@@ -3,3 +3,19 @@ app-nav .navbar-default {
   border-width: 0 0 2px 0;
   border-color: $default-color;
 }
+app-nav .btn.float {
+  display: none;
+}
+@media screen and (max-width: 767px) {
+  app-nav .btn.float {
+    display: block;
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 1;
+    background-color: #fff;
+    &:hover, &:active, &:focus {
+      color: $success-color;
+    }
+  }
+}

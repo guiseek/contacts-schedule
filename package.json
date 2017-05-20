@@ -15,7 +15,10 @@
     "angular-messages": "^1.6.0",
     "angular-ui-router": "1.0.0-beta.2",
     "angularfire": "^2.0.2",
-    "firebase": "3.3.0"
+    "bootstrap-sass": "^3.3.7",
+    "firebase": "3.3.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",

@@ -1,8 +1,8 @@
-<contacts-search
+<search
   search="$ctrl.search"
   on-update="$ctrl.updateSearch($event)"
   on-clear="$ctrl.updateSearch($event)">
-</contacts-search>
+</search>
 <div class="row" ng-if="$ctrl.filteredContacts.length">
   <div class="col-md-3" ng-repeat="contact in $ctrl.filteredContacts | filter: $ctrl.search">
     <contact

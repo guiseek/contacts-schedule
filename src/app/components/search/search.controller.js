@@ -1,4 +1,4 @@
-function ContactsSearchController() {
+function SearchController() {
   let ctrl = this
   ctrl.updateSearch = () => {
     ctrl.onUpdate({
@@ -17,5 +17,5 @@ function ContactsSearchController() {
 }
 
 angular
-  .module('components.contact')
-  .controller('ContactsSearchController', ContactsSearchController);
+  .module('components.search')
+  .controller('SearchController', SearchController);

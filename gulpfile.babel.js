@@ -26,6 +26,8 @@ const paths = {
   styles: `${root}/sass/*.scss`,
   templates: `${root}/app/**/*.html`,
   modules: [
+    'jquery/dist/jquery.min.js',
+    'bootstrap-sass/assets/javascripts/bootstrap.js',
     'angular/angular.js',
     'angular-ui-router/release/angular-ui-router.js',
     'firebase/firebase.js',

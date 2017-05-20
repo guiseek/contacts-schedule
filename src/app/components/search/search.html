@@ -6,7 +6,7 @@
     <input
       type="text"
       class="form-control"
-      placeholder="Buscar contato..."
+      placeholder="Buscar..."
       aria-describedby="search"
       ng-change="$ctrl.updateSearch()"
       ng-model-options="{
@@ -17,8 +17,10 @@
         }
       }"
       ng-model="$ctrl.search">
-    <span class="input-group-addon" ng-click="$ctrl.clear()">
-      <i class="glyphicon glyphicon-remove"></i>
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-default" ng-disabled="!$ctrl.search.length" ng-click="$ctrl.clear()">
+        <i class="glyphicon glyphicon-remove" ng-class="{'text-warning': $ctrl.search.length}"></i>
+      </button>
     </span>
   </div>
 </div>

@@ -13,8 +13,8 @@ contact .btn-group .btn {
   padding: 5px 8px;
   font-size: 24px;
 }
-contact .btn-group .btn:not(:first-child):last-child {
-  border-left-width: 2px;
+contact .btn-group .btn:first-child:not(:last-child) {
+  border-right-width: 2px;
   border-color: $default-color;
 }
 contact .panel-body p {
@@ -24,10 +24,29 @@ contact .panel-body p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+contact[content="full"] .panel {
+  margin-bottom: -2px;
+  border-bottom-right-radius: 0;
+}
+contact[content="half"] .panel-body .col-md-5,
+contact[content="half"] .panel-body .col-md-7 {
+  width: 100%;
+}
 contact .panel-body p > a,
 contact .panel-body p > a > span  {
   font-size: 14px;
 }
 contact .panel-body .col-md-5:last-child > p {
   margin-bottom: 0;
+}
+@media (max-width: 768px) {
+  contact .panel-body p > i,
+  contact .panel-body p > a,
+  contact .panel-body p > span {
+    font-size: 18px;
+  }
+  contact[content="half"] .panel-body p > i.fa-phone,
+  contact[content="half"] .panel-body p > i.fa-phone + a {
+    font-size: 32px;
+  }
 }
