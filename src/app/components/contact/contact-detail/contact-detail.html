@@ -1,6 +1,14 @@
 <div class="contact">
   <form name="contactDetailForm" novalidate>
     <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-info">
+          <i class="glyphicon glyphicon-alert"></i>
+          Os campos obrigatórios estão marcados em amarelo.
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-md-12 navbar">
         <contact-tag
           tag="$ctrl.contact.tag"
@@ -19,7 +27,7 @@
             type="text"
             name="name"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
+            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
             minlength="8"
             required
             ng-change="$ctrl.updateContact();"
@@ -41,7 +49,7 @@
             type="tel"
             name="phone"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
+            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
             minlength="8"
             required
             ng-change="$ctrl.updateContact();"
@@ -63,7 +71,7 @@
             type="email"
             name="email"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
+            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
             required
             ng-change="$ctrl.updateContact();"
             ng-model-options="{

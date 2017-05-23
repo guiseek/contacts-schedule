@@ -14,8 +14,11 @@ function validateClass() {
                 $parent.removeClass(classes.success)
               } else {
                 $parent.removeClass(classes.error)
+                $parent.removeClass(classes.warning)
                 $parent.addClass(classes.success)
               }
+            } else {
+              $parent.addClass(classes.warning)
             }
           })
         }

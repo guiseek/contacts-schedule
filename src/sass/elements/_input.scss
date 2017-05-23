@@ -1,5 +1,6 @@
 .form-control,
 .has-success .form-control,
+.has-warning .form-control,
 .has-error .form-control {
   border-width: 2px;
   box-shadow: none;
@@ -12,6 +13,12 @@
   border-color: $success-color;
   &:focus {
     border-color: $success-color;
+  }
+}
+.has-warning .form-control {
+  border-color: $warning-color;
+  &:focus {
+    border-color: $warning-color;
   }
 }
 .has-error .form-control {
