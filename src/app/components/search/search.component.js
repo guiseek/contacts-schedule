@@ -6,8 +6,8 @@ let search = {
   },
   templateUrl: './search.html',
   controller: 'SearchController'
-};
+}
 
 angular
   .module('components.search')
-  .component('search', search);
+  .component('search', search)

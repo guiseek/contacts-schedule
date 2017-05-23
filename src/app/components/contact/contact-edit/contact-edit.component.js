@@ -4,7 +4,7 @@ let contactEdit = {
   },
   templateUrl: './contact-edit.html',
   controller: 'ContactEditController'
-};
+}
 
 angular
   .module('components.contact')
@@ -17,9 +17,9 @@ angular
         component: 'contactEdit',
         resolve: {
           contact: function ($transition$, ContactService) {
-            let key = $transition$.params().id;
-            return ContactService.getContactById(key).$loaded();
+            let key = $transition$.params().id
+            return ContactService.getContactById(key).$loaded()
           }
         }
-      });
-  });
+      })
+  })

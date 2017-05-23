@@ -9,6 +9,15 @@ angular
 (function(angular){
 'use strict';
 angular
+  .module('components', [
+    'components.contact',
+    'components.search',
+    'components.auth'
+  ])
+})(window.angular);
+(function(angular){
+'use strict';
+angular
   .module('common', [
     'ui.router',
     'angular-loading-bar'
@@ -17,15 +26,6 @@ angular
     $transitions.onStart({}, cfpLoadingBar.start)
     $transitions.onSuccess({}, cfpLoadingBar.complete)
   }])
-})(window.angular);
-(function(angular){
-'use strict';
-angular
-  .module('components', [
-    'components.contact',
-    'components.search',
-    'components.auth'
-  ])
 })(window.angular);
 (function(angular){
 'use strict';
@@ -78,13 +78,13 @@ angular
 (function(angular){
 'use strict';
 angular
-  .module('components.search', [])})(window.angular);
-(function(angular){
-'use strict';
-angular
   .module('components.contact', [
     'ui.router'
   ])})(window.angular);
+(function(angular){
+'use strict';
+angular
+  .module('components.search', [])})(window.angular);
 (function(angular){
 'use strict';
 let root = {
@@ -230,38 +230,6 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
-function validateClass() {
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    compile: function ($element) {
-      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
-      return function ($scope, $element, $attrs, $ctrl) {
-        if (!!$attrs.validateClass) {
-          let classes = $scope.$eval($attrs.validateClass)
-          $scope.$watch(newValue => {
-            if ($ctrl.$dirty) {
-              if ($ctrl.$invalid) {
-                $parent.addClass(classes.error)
-                $parent.removeClass(classes.success)
-              } else {
-                $parent.removeClass(classes.error)
-                $parent.addClass(classes.success)
-              }
-            }
-          })
-        }
-      }
-    }
-  }
-}
-
-angular
-  .module('components.contact')
-  .directive('validateClass', validateClass)
-})(window.angular);
-(function(angular){
-'use strict';
 AuthService.$inject = ["$firebaseAuth"];
 function AuthService($firebaseAuth) {
   let auth = $firebaseAuth()
@@ -312,6 +280,35 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
+ContactService.$inject = ["AuthService", "$firebaseRef", "$firebaseArray", "$firebaseObject"];
+function ContactService(AuthService, $firebaseRef, $firebaseArray, $firebaseObject) {
+  let ref = $firebaseRef.contacts
+  let uid = AuthService.getUser().uid
+  return {
+    createNewContact: function (contact) {
+      return $firebaseArray(ref.child(uid)).$add(contact)
+    },
+    getContactById: function (id) {
+      return $firebaseObject(ref.child(uid).child(id))
+    },
+    getContactList: function () {
+      return $firebaseArray(ref.child(uid))
+    },
+    updateContact: function (contact) {
+      return contact.$save()
+    },
+    deleteContact: function (contact) {
+      return contact.$remove()
+    }
+  }
+}
+
+angular
+  .module('components.contact')
+  .factory('ContactService', ContactService)
+})(window.angular);
+(function(angular){
+'use strict';
 let search = {
   bindings: {
     search: '<',
@@ -320,11 +317,11 @@ let search = {
   },
   templateUrl: './search.html',
   controller: 'SearchController'
-};
+}
 
 angular
   .module('components.search')
-  .component('search', search);
+  .component('search', search)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -352,32 +349,35 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
-ContactService.$inject = ["AuthService", "$firebaseRef", "$firebaseArray", "$firebaseObject"];
-function ContactService(AuthService, $firebaseRef, $firebaseArray, $firebaseObject) {
-  let ref = $firebaseRef.contacts
-  let uid = AuthService.getUser().uid
+function validateClass() {
   return {
-    createNewContact: function (contact) {
-      return $firebaseArray(ref.child(uid)).$add(contact)
-    },
-    getContactById: function (id) {
-      return $firebaseObject(ref.child(uid).child(id))
-    },
-    getContactList: function () {
-      return $firebaseArray(ref.child(uid))
-    },
-    updateContact: function (contact) {
-      return contact.$save()
-    },
-    deleteContact: function (contact) {
-      return contact.$remove()
+    restrict: 'A',
+    require: 'ngModel',
+    compile: function ($element) {
+      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
+      return function ($scope, $element, $attrs, $ctrl) {
+        if (!!$attrs.validateClass) {
+          let classes = $scope.$eval($attrs.validateClass)
+          $scope.$watch(newValue => {
+            if ($ctrl.$dirty) {
+              if ($ctrl.$invalid) {
+                $parent.addClass(classes.error)
+                $parent.removeClass(classes.success)
+              } else {
+                $parent.removeClass(classes.error)
+                $parent.addClass(classes.success)
+              }
+            }
+          })
+        }
+      }
     }
   }
 }
 
 angular
   .module('components.contact')
-  .factory('ContactService', ContactService)
+  .directive('validateClass', validateClass)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -633,7 +633,7 @@ let contactEdit = {
   },
   templateUrl: './contact-edit.html',
   controller: 'ContactEditController'
-};
+}
 
 angular
   .module('components.contact')
@@ -646,12 +646,12 @@ angular
         component: 'contactEdit',
         resolve: {
           contact: ["$transition$", "ContactService", function ($transition$, ContactService) {
-            let key = $transition$.params().id;
-            return ContactService.getContactById(key).$loaded();
+            let key = $transition$.params().id
+            return ContactService.getContactById(key).$loaded()
           }]
         }
-      });
-  }]);
+      })
+  }])
 })(window.angular);
 (function(angular){
 'use strict';
