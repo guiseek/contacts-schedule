@@ -1,8 +1,13 @@
 function ContactsController($filter, $state) {
   let ctrl = this
-
+  let filtrate = () => {
+    return $filter('contactsFilter')(ctrl.contacts, ctrl.filter)
+  }
   ctrl.$onInit = () => {
-    ctrl.filteredContacts = $filter('contactsFilter')(ctrl.contacts, ctrl.filter)
+    ctrl.contacts.$watch(() => {
+      ctrl.filteredContacts = filtrate()
+    })
+    ctrl.filteredContacts = filtrate()
   }
   ctrl.updateSearch = event => {
     ctrl.search = event.search
