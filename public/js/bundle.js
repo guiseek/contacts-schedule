@@ -9,15 +9,6 @@ angular
 (function(angular){
 'use strict';
 angular
-  .module('components', [
-    'components.contact',
-    'components.search',
-    'components.auth'
-  ])
-})(window.angular);
-(function(angular){
-'use strict';
-angular
   .module('common', [
     'ui.router',
     'angular-loading-bar'
@@ -26,6 +17,15 @@ angular
     $transitions.onStart({}, cfpLoadingBar.start)
     $transitions.onSuccess({}, cfpLoadingBar.complete)
   }])
+})(window.angular);
+(function(angular){
+'use strict';
+angular
+  .module('components', [
+    'components.contact',
+    'components.search',
+    'components.auth'
+  ])
 })(window.angular);
 (function(angular){
 'use strict';
@@ -112,8 +112,8 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
-AppNavController.$inject = ["TagService", "cfpLoadingBar"];
-function AppNavController(TagService, cfpLoadingBar) {
+AppNavController.$inject = ["TagService"];
+function AppNavController(TagService) {
   let ctrl = this
 
   ctrl.$onInit = () => {
@@ -227,6 +227,38 @@ function AppController(AuthService, $state) {
 angular
   .module('common')
   .controller('AppController', AppController)
+})(window.angular);
+(function(angular){
+'use strict';
+function validateClass() {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    compile: function ($element) {
+      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
+      return function ($scope, $element, $attrs, $ctrl) {
+        if (!!$attrs.validateClass) {
+          let classes = $scope.$eval($attrs.validateClass)
+          $scope.$watch(newValue => {
+            if ($ctrl.$dirty) {
+              if ($ctrl.$invalid) {
+                $parent.addClass(classes.error)
+                $parent.removeClass(classes.success)
+              } else {
+                $parent.removeClass(classes.error)
+                $parent.addClass(classes.success)
+              }
+            }
+          })
+        }
+      }
+    }
+  }
+}
+
+angular
+  .module('components.contact')
+  .directive('validateClass', validateClass)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -346,38 +378,6 @@ function SearchController() {
 angular
   .module('components.search')
   .controller('SearchController', SearchController);
-})(window.angular);
-(function(angular){
-'use strict';
-function validateClass() {
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    compile: function ($element) {
-      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
-      return function ($scope, $element, $attrs, $ctrl) {
-        if (!!$attrs.validateClass) {
-          let classes = $scope.$eval($attrs.validateClass)
-          $scope.$watch(newValue => {
-            if ($ctrl.$dirty) {
-              if ($ctrl.$invalid) {
-                $parent.addClass(classes.error)
-                $parent.removeClass(classes.success)
-              } else {
-                $parent.removeClass(classes.error)
-                $parent.addClass(classes.success)
-              }
-            }
-          })
-        }
-      }
-    }
-  }
-}
-
-angular
-  .module('components.contact')
-  .directive('validateClass', validateClass)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -1007,12 +1007,12 @@ angular
 (function(angular){
 'use strict';
 angular.module('templates', []).run(['$templateCache', function($templateCache) {$templateCache.put('./root.html','<div ui-view></div>');
-$templateCache.put('./app-nav.html','<nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" ui-sref="contacts({filter: none})">Agenda de contatos</a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav"><li><a ui-sref="new"><i class="glyphicon glyphicon-plus"></i> Novo contato</a></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <span ng-bind="::$ctrl.user.email"></span> <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="" ng-click="$ctrl.onLogout();"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li></ul></li></ul></div></div></nav><a class="btn btn-success float" ng-click="$ctrl.offcanvas()">Etiquetas</a>');
-$templateCache.put('./app-sidebar.html','<aside class="panel panel-default"><div class="panel-heading">Etiquetas</div><contact-tags class="tags" contact-tags="$ctrl.contactTags" on-select="$ctrl.selectTag($event);"></contact-tags><div class="panel-body"><contact-tag-detail tag="$ctrl.tag" on-save="$ctrl.createNewTag($event);" on-delete="$ctrl.deleteTag($event);" on-update="$ctrl.updateTag($event);"></contact-tag-detail></div></aside>');
+$templateCache.put('./app-nav.html','<nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" ui-sref="contacts({filter: none})">Agenda de contatos</a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav"><li><a ui-sref="new"><i class="glyphicon glyphicon-plus"></i> Novo contato</a></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <span ng-bind="::$ctrl.user.email"></span> <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="" ng-click="$ctrl.onLogout();"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li></ul></li></ul></div></div></nav><a class="btn btn-success btn-lg float" ng-click="$ctrl.offcanvas()"><i class="glyphicon glyphicon-list-alt"></i> <i class="glyphicon glyphicon-resize-horizontal"></i></a>');
+$templateCache.put('./app-sidebar.html','<aside class="panel panel-default"><div class="panel-heading"><i class="glyphicon glyphicon-tag"></i> Etiquetas</div><contact-tags class="tags" contact-tags="$ctrl.contactTags" on-select="$ctrl.selectTag($event);"></contact-tags><div class="panel-body"><contact-tag-detail tag="$ctrl.tag" on-save="$ctrl.createNewTag($event);" on-delete="$ctrl.deleteTag($event);" on-update="$ctrl.updateTag($event);"></contact-tag-detail></div></aside>');
 $templateCache.put('./app.html','<app-nav user="$ctrl.user" on-logout="$ctrl.logout();"></app-nav><div class="container-fluid"><div class="row row-offcanvas row-offcanvas-right"><div class="col-sm-9"><div ui-view></div></div><div class="col-sm-3 sidebar-offcanvas" id="sidebar"><app-sidebar></app-sidebar></div></div></div>');
 $templateCache.put('./search.html','<div class="navbar"><div class="input-group"><span class="input-group-addon" id="search"><i class="glyphicon glyphicon-search"></i> </span><input type="text" class="form-control" placeholder="Buscar..." aria-describedby="search" ng-change="$ctrl.updateSearch()" ng-model-options="{\n        \'updateOn\': \'default blur\',\n        \'debounce\': {\n          \'default\': 600,\n          \'blur\': 0\n        }\n      }" ng-model="$ctrl.search"> <span class="input-group-btn"><button type="button" class="btn btn-default" ng-disabled="!$ctrl.search.length" ng-click="$ctrl.clear()"><i class="glyphicon glyphicon-remove" ng-class="{\'text-warning\': $ctrl.search.length}"></i></button></span></div></div>');
-$templateCache.put('./auth.html','<div class="container"><div class="row"><div class="col-md-4 col-md-offset-4"><div ui-view></div></div></div></div>');
 $templateCache.put('./auth-form.html','<form name="authForm" class="panel panel-default" novalidate ng-submit="$ctrl.submitForm();"><div class="panel-body"><div ng-if="$ctrl.message" class="alert alert-danger">{{ $ctrl.message }}</div><div class="form-group"><label for="email">Email</label><input type="email" name="email" id="email" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-model="$ctrl.user.email" autocomplete="off" required></div><div class="form-group"><label for="password">Senha</label><input type="password" name="password" id="password" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-model="$ctrl.user.password" minlength="6" required></div><div class="text-right"><button class="btn btn-warning" type="reset"><i class="glyphicon glyphicon-remove"></i> {{ $ctrl.reset }}</button> <button class="btn btn-info" type="submit" ng-disabled="authForm.$invalid"><i class="glyphicon glyphicon-ok"></i> {{ $ctrl.button }}</button></div></div></form>');
+$templateCache.put('./auth.html','<div class="container"><div class="row"><div class="col-md-4 col-md-offset-4"><div ui-view></div></div></div></div>');
 $templateCache.put('./login.html','<h1>Acesso</h1><auth-form user="$ctrl.user" message="{{ $ctrl.error }}" button="Acessar conta" reset="Limpar" on-submit="$ctrl.loginUser($event);"></auth-form><div class="alert alert-info"><i class="glyphicon glyphicon-exclamation-sign"></i> <a ui-sref="auth.register">Ainda n\xE3o tem uma conta? Crie uma agora!</a></div>');
 $templateCache.put('./register.html','<h1>Cadastro</h1><auth-form user="$ctrl.user" message="{{ $ctrl.error }}" reset="Limpar" button="Criar conta" on-submit="$ctrl.createUser($event);"></auth-form><div class="alert alert-info"><i class="glyphicon glyphicon-exclamation-sign"></i> <a ui-sref="auth.login">J\xE1 tem uma conta? Fa\xE7a o login!</a></div>');
 $templateCache.put('./contact.html','<div class="panel panel-default"><div class="panel-heading"><span ng-bind="$ctrl.contact.name"></span> <i class="fa fa-user text-success pull-right"></i></div><div class="panel-body"><div class="row"><div class="col-md-5 col-xs-12"><p><i class="fa fa-phone"></i> <a href="tel:{{$ctrl.contact.phone}}" ng-bind="$ctrl.contact.phone"></a></p></div><div class="col-md-7 col-xs-12"><p><i class="fa fa-envelope-o"></i> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=\'{{$ctrl.contact.name}}\' <{{$ctrl.contact.email}}>" target="_blank" ng-bind="$ctrl.contact.email"></a></p></div><div ng-if="$ctrl.content == \'full\'" class="col-sm-5 col-xs-12"><p><i class="fa fa-laptop"></i> <span ng-bind="$ctrl.contact.job || \'Sem profiss\xE3o\'"></span></p></div><div ng-if="$ctrl.content == \'full\'" class="col-md-7 col-xs-12"><p><i class="fa fa-tag"></i> <a ui-sref="contacts({ filter: $ctrl.contact.tag.state })" ng-bind="$ctrl.contact.tag.label || \'Sem etiqueta\'"></a></p></div><div ng-if="$ctrl.contact.location && $ctrl.content == \'full\'" class="col-xs-12"><p><i class="fa fa-home"></i> <a ng-href="https://maps.google.com/?q={{$ctrl.contact.location}}" target="_blank" ng-bind="$ctrl.contact.location"></a></p></div></div></div><div><div class="btn-group btn-group-justified btn-group-lg" role="group" aria-label="..."><a ng-click="$ctrl.selectContact()" class="btn btn-default"><i class="fa fa-pencil"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.facebook" href="{{$ctrl.contact.social.facebook}}" target="_blank" class="btn btn-primary"><i class="fa fa-facebook-square"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.google" href="{{$ctrl.contact.social.google}}" target="_blank" class="btn btn-danger"><i class="fa fa-google-plus"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.github" href="{{$ctrl.contact.social.github}}" target="_blank" class="btn btn-success"><i class="fa fa-github"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.twitter" href="{{$ctrl.contact.social.twitter}}" target="_blank" class="btn btn-info"><i class="fa fa-twitter"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.linkedin" href="{{$ctrl.contact.social.linkedin}}" target="_blank" class="btn btn-primary"><i class="fa fa-linkedin"></i> </a><a ng-if="$ctrl.content == \'half\'" ng-click="$ctrl.openContact()" class="btn btn-info"><i class="fa fa-user-circle-o"></i></a></div></div></div>');

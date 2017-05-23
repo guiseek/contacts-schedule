@@ -1,4 +1,4 @@
-function AppNavController(TagService, cfpLoadingBar) {
+function AppNavController(TagService) {
   let ctrl = this
 
   ctrl.$onInit = () => {

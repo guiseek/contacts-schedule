@@ -1,16 +1,8 @@
-/*
- * Style tweaks
- * --------------------------------------------------
- */
 html,
 body {
-  overflow-x: hidden; /* Prevent scroll on narrow devices */
+  overflow-x: hidden;
 }
 
-/*
- * Off Canvas
- * --------------------------------------------------
- */
 @media screen and (max-width: 767px) {
   .row-offcanvas {
     position: relative;
@@ -20,7 +12,7 @@ body {
   }
 
   .row-offcanvas-right {
-    right: 0;
+    right: 0px;
   }
 
   .row-offcanvas-left {
@@ -29,25 +21,25 @@ body {
 
   .row-offcanvas-right
   .sidebar-offcanvas {
-    right: -70%; /* 6 columns */
+    right: -70%;
   }
 
   .row-offcanvas-left
   .sidebar-offcanvas {
-    left: -30%; /* 6 columns */
+    left: -30%;
   }
 
   .row-offcanvas-right.active {
-    right: 70%; /* 6 columns */
+    right: 70%;
   }
 
   .row-offcanvas-left.active {
-    left: 30%; /* 6 columns */
+    left: 30%;
   }
 
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
-    width: 70%; /* 6 columns */
+    width: 70%;
   }
 }
