@@ -39,7 +39,13 @@ contact .panel-body p > a > span  {
 contact .panel-body .col-md-5:last-child > p {
   margin-bottom: 0;
 }
+contact-detail .navbtn {
+  text-align: right;
+}
 @media (max-width: 768px) {
+  contact-detail .navbtn {
+    text-align: left;
+  }
   contact .panel-body p > i,
   contact .panel-body p > a,
   contact .panel-body p > span {

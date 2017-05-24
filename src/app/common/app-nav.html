@@ -22,12 +22,12 @@
         <li class="dropdown">
           <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             <i class="glyphicon glyphicon-user"></i>
-            <span ng-bind="::$ctrl.user.email"></span>
+            <span ng-bind="$ctrl.user.email"></span>
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li>
-              <a href="" ng-click="$ctrl.onLogout();">
+              <a href="" ng-click="$ctrl.onLogout()">
                 <i class="glyphicon glyphicon-log-out"></i>
                 Sair
               </a>

@@ -9,15 +9,6 @@ angular
 (function(angular){
 'use strict';
 angular
-  .module('components', [
-    'components.contact',
-    'components.search',
-    'components.auth'
-  ])
-})(window.angular);
-(function(angular){
-'use strict';
-angular
   .module('common', [
     'ui.router',
     'angular-loading-bar'
@@ -26,6 +17,15 @@ angular
     $transitions.onStart({}, cfpLoadingBar.start)
     $transitions.onSuccess({}, cfpLoadingBar.complete)
   }])
+})(window.angular);
+(function(angular){
+'use strict';
+angular
+  .module('components', [
+    'components.contact',
+    'components.search',
+    'components.auth'
+  ])
 })(window.angular);
 (function(angular){
 'use strict';
@@ -230,6 +230,41 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
+function validateClass() {
+  return {
+    restrict: 'A',
+    require: 'ngModel',
+    compile: function ($element) {
+      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
+      return function ($scope, $element, $attrs, $ctrl) {
+        if (!!$attrs.validateClass) {
+          let classes = $scope.$eval($attrs.validateClass)
+          $scope.$watch(newValue => {
+            if ($ctrl.$dirty) {
+              if ($ctrl.$invalid) {
+                $parent.addClass(classes.error)
+                $parent.removeClass(classes.success)
+              } else {
+                $parent.removeClass(classes.error)
+                $parent.removeClass(classes.warning)
+                $parent.addClass(classes.success)
+              }
+            } else {
+              $parent.addClass(classes.warning)
+            }
+          })
+        }
+      }
+    }
+  }
+}
+
+angular
+  .module('components.contact')
+  .directive('validateClass', validateClass)
+})(window.angular);
+(function(angular){
+'use strict';
 AuthService.$inject = ["$firebaseAuth"];
 function AuthService($firebaseAuth) {
   let auth = $firebaseAuth()
@@ -346,41 +381,6 @@ function SearchController() {
 angular
   .module('components.search')
   .controller('SearchController', SearchController);
-})(window.angular);
-(function(angular){
-'use strict';
-function validateClass() {
-  return {
-    restrict: 'A',
-    require: 'ngModel',
-    compile: function ($element) {
-      let $parent = angular.element($element[0].parentElement || $element[0].parentNode)
-      return function ($scope, $element, $attrs, $ctrl) {
-        if (!!$attrs.validateClass) {
-          let classes = $scope.$eval($attrs.validateClass)
-          $scope.$watch(newValue => {
-            if ($ctrl.$dirty) {
-              if ($ctrl.$invalid) {
-                $parent.addClass(classes.error)
-                $parent.removeClass(classes.success)
-              } else {
-                $parent.removeClass(classes.error)
-                $parent.removeClass(classes.warning)
-                $parent.addClass(classes.success)
-              }
-            } else {
-              $parent.addClass(classes.warning)
-            }
-          })
-        }
-      }
-    }
-  }
-}
-
-angular
-  .module('components.contact')
-  .directive('validateClass', validateClass)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -674,7 +674,7 @@ function ContactEditController($state, ContactService, cfpLoadingBar, $window) {
       return ContactService
         .deleteContact(event.contact)
         .then(() => {
-          $state.go('contacts');
+          $state.go('contacts')
         })
     }
   }
@@ -682,7 +682,7 @@ function ContactEditController($state, ContactService, cfpLoadingBar, $window) {
 
 angular
   .module('components.contact')
-  .controller('ContactEditController', ContactEditController);
+  .controller('ContactEditController', ContactEditController)
 })(window.angular);
 (function(angular){
 'use strict';
@@ -1015,7 +1015,7 @@ angular
 (function(angular){
 'use strict';
 angular.module('templates', []).run(['$templateCache', function($templateCache) {$templateCache.put('./root.html','<div ui-view></div>');
-$templateCache.put('./app-nav.html','<nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" ui-sref="contacts({filter: none})">Agenda de contatos</a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav"><li><a ui-sref="new"><i class="glyphicon glyphicon-plus"></i> Novo contato</a></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <span ng-bind="::$ctrl.user.email"></span> <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="" ng-click="$ctrl.onLogout();"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li></ul></li></ul></div></div></nav><a class="btn btn-success btn-lg float" ng-click="$ctrl.offcanvas()"><i class="glyphicon glyphicon-list-alt"></i> <i class="glyphicon glyphicon-resize-horizontal"></i></a>');
+$templateCache.put('./app-nav.html','<nav class="navbar navbar-default"><div class="container-fluid"><div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button> <a class="navbar-brand" ui-sref="contacts({filter: none})">Agenda de contatos</a></div><div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><ul class="nav navbar-nav"><li><a ui-sref="new"><i class="glyphicon glyphicon-plus"></i> Novo contato</a></li></ul><ul class="nav navbar-nav navbar-right"><li class="dropdown"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i> <span ng-bind="$ctrl.user.email"></span> <span class="caret"></span></a><ul class="dropdown-menu"><li><a href="" ng-click="$ctrl.onLogout()"><i class="glyphicon glyphicon-log-out"></i> Sair</a></li></ul></li></ul></div></div></nav><a class="btn btn-success btn-lg float" ng-click="$ctrl.offcanvas()"><i class="glyphicon glyphicon-list-alt"></i> <i class="glyphicon glyphicon-resize-horizontal"></i></a>');
 $templateCache.put('./app-sidebar.html','<aside class="panel panel-default"><div class="panel-heading"><i class="glyphicon glyphicon-tag"></i> Etiquetas</div><contact-tags class="tags" contact-tags="$ctrl.contactTags" on-select="$ctrl.selectTag($event);"></contact-tags><div class="panel-body"><contact-tag-detail tag="$ctrl.tag" on-save="$ctrl.createNewTag($event);" on-delete="$ctrl.deleteTag($event);" on-update="$ctrl.updateTag($event);"></contact-tag-detail></div></aside>');
 $templateCache.put('./app.html','<app-nav user="$ctrl.user" on-logout="$ctrl.logout();"></app-nav><div class="container-fluid"><div class="row row-offcanvas row-offcanvas-right"><div class="col-sm-9"><div ui-view></div></div><div class="col-sm-3 sidebar-offcanvas" id="sidebar"><app-sidebar></app-sidebar></div></div></div>');
 $templateCache.put('./search.html','<div class="navbar"><div class="input-group"><span class="input-group-addon" id="search"><i class="glyphicon glyphicon-search"></i> </span><input type="text" class="form-control" placeholder="Buscar..." aria-describedby="search" ng-change="$ctrl.updateSearch()" ng-model-options="{\n        \'updateOn\': \'default blur\',\n        \'debounce\': {\n          \'default\': 600,\n          \'blur\': 0\n        }\n      }" ng-model="$ctrl.search"> <span class="input-group-btn"><button type="button" class="btn btn-default" ng-disabled="!$ctrl.search.length" ng-click="$ctrl.clear()"><i class="glyphicon glyphicon-remove" ng-class="{\'text-warning\': $ctrl.search.length}"></i></button></span></div></div>');
@@ -1024,7 +1024,7 @@ $templateCache.put('./auth-form.html','<form name="authForm" class="panel panel-
 $templateCache.put('./login.html','<h1>Acesso</h1><auth-form user="$ctrl.user" message="{{ $ctrl.error }}" button="Acessar conta" reset="Limpar" on-submit="$ctrl.loginUser($event);"></auth-form><div class="alert alert-info"><i class="glyphicon glyphicon-exclamation-sign"></i> <a ui-sref="auth.register">Ainda n\xE3o tem uma conta? Crie uma agora!</a></div>');
 $templateCache.put('./register.html','<h1>Cadastro</h1><auth-form user="$ctrl.user" message="{{ $ctrl.error }}" reset="Limpar" button="Criar conta" on-submit="$ctrl.createUser($event);"></auth-form><div class="alert alert-info"><i class="glyphicon glyphicon-exclamation-sign"></i> <a ui-sref="auth.login">J\xE1 tem uma conta? Fa\xE7a o login!</a></div>');
 $templateCache.put('./contact.html','<div class="panel panel-default"><div class="panel-heading"><span ng-bind="$ctrl.contact.name"></span> <i class="fa fa-user text-success pull-right"></i></div><div class="panel-body"><div class="row"><div class="col-md-5 col-xs-12"><p><i class="fa fa-phone"></i> <a href="tel:{{$ctrl.contact.phone}}" ng-bind="$ctrl.contact.phone"></a></p></div><div class="col-md-7 col-xs-12"><p><i class="fa fa-envelope-o"></i> <a href="https://mail.google.com/mail/?view=cm&fs=1&to=\'{{$ctrl.contact.name}}\' <{{$ctrl.contact.email}}>" target="_blank" ng-bind="$ctrl.contact.email"></a></p></div><div ng-if="$ctrl.content == \'full\'" class="col-sm-5 col-xs-12"><p><i class="fa fa-laptop"></i> <span ng-bind="$ctrl.contact.job || \'Sem profiss\xE3o\'"></span></p></div><div ng-if="$ctrl.content == \'full\'" class="col-md-7 col-xs-12"><p><i class="fa fa-tag"></i> <a ui-sref="contacts({ filter: $ctrl.contact.tag.state })" ng-bind="$ctrl.contact.tag.label || \'Sem etiqueta\'"></a></p></div><div ng-if="$ctrl.contact.location && $ctrl.content == \'full\'" class="col-xs-12"><p><i class="fa fa-home"></i> <a ng-href="https://maps.google.com/?q={{$ctrl.contact.location}}" target="_blank" ng-bind="$ctrl.contact.location"></a></p></div></div></div><div><div class="btn-group btn-group-justified btn-group-lg" role="group" aria-label="..."><a ng-click="$ctrl.selectContact()" class="btn btn-default"><i class="fa fa-pencil"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.facebook" href="{{$ctrl.contact.social.facebook}}" target="_blank" class="btn btn-primary"><i class="fa fa-facebook-square"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.google" href="{{$ctrl.contact.social.google}}" target="_blank" class="btn btn-danger"><i class="fa fa-google-plus"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.github" href="{{$ctrl.contact.social.github}}" target="_blank" class="btn btn-success"><i class="fa fa-github"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.twitter" href="{{$ctrl.contact.social.twitter}}" target="_blank" class="btn btn-info"><i class="fa fa-twitter"></i> </a><a ng-if="$ctrl.content == \'full\' && $ctrl.contact.social.linkedin" href="{{$ctrl.contact.social.linkedin}}" target="_blank" class="btn btn-primary"><i class="fa fa-linkedin"></i> </a><a ng-if="$ctrl.content == \'half\'" ng-click="$ctrl.openContact()" class="btn btn-info"><i class="fa fa-user-circle-o"></i></a></div></div></div>');
-$templateCache.put('./contact-detail.html','<div class="contact"><form name="contactDetailForm" novalidate><div class="row"><div class="col-md-12"><div class="alert alert-info"><i class="glyphicon glyphicon-alert"></i> Os campos obrigat\xF3rios est\xE3o marcados em amarelo.</div></div></div><div class="row"><div class="col-md-12 navbar"><contact-tag tag="$ctrl.contact.tag" on-change="$ctrl.tagChange($event);"></contact-tag></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label>Nome</label><input type="text" name="name" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" minlength="8" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.name"></div><div class="form-group"><label>Telefone</label><input type="tel" name="phone" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" minlength="8" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.phone"></div><div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.email"></div><div class="form-group"><label>Profiss\xE3o</label><input type="text" name="jobTitle" class="form-control" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.job"></div><div class="form-group"><label>Endere\xE7o</label><input type="text" name="location" class="form-control" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.location"></div></div><div class="col-md-6"><div class="form-group"><label>Facebook</label><input type="url" name="facebook" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.facebook"></div><div class="form-group"><label>Google+</label><input type="url" name="google" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.google"></div><div class="form-group"><label>GitHub</label><input type="url" name="github" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.github"></div><div class="form-group"><label>Twitter</label><input type="url" name="twitter" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.twitter"></div><div class="form-group"><label>LinkedIn</label><input type="url" name="linkedin" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.linkedin"></div></div></div><div class="row"><div class="col-md-12 navbar text-right"><button class="btn btn-warning" type="reset"><i class="glyphicon glyphicon-remove"></i> Limpar</button> <button ng-if="$ctrl.isNewContact" class="btn btn-success" ng-disabled="contactDetailForm.$invalid" ng-click="$ctrl.saveContact();"><i class="fa fa-check"></i> Salvar contato</button> <button ng-if="!$ctrl.isNewContact" class="btn btn-danger" ng-click="$ctrl.deleteContact();"><i class="fa fa-trash-o"></i> Apagar contato</button></div></div></form></div>');
+$templateCache.put('./contact-detail.html','<div class="contact"><form name="contactDetailForm" novalidate><div class="row"><div class="col-md-12"><div class="alert alert-info"><i class="glyphicon glyphicon-alert"></i> Os campos obrigat\xF3rios est\xE3o marcados em amarelo.</div></div></div><div class="row"><div class="col-md-12 navbar"><contact-tag tag="$ctrl.contact.tag" on-change="$ctrl.tagChange($event);"></contact-tag></div></div><div class="row"><div class="col-md-6"><div class="form-group"><label>Nome</label><input type="text" name="name" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" minlength="8" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.name"></div><div class="form-group"><label>Telefone</label><input type="tel" name="phone" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" minlength="8" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.phone"></div><div class="form-group"><label>Email</label><input type="email" name="email" class="form-control" validate-class="{success: \'has-success\', error: \'has-error\', warning: \'has-warning\'}" required ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.email"></div><div class="form-group"><label>Profiss\xE3o</label><input type="text" name="jobTitle" class="form-control" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.job"></div><div class="form-group"><label>Endere\xE7o</label><input type="text" name="location" class="form-control" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.location"></div></div><div class="col-md-6"><div class="form-group"><label>Facebook</label><input type="url" name="facebook" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.facebook"></div><div class="form-group"><label>Google+</label><input type="url" name="google" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.google"></div><div class="form-group"><label>GitHub</label><input type="url" name="github" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.github"></div><div class="form-group"><label>Twitter</label><input type="url" name="twitter" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.twitter"></div><div class="form-group"><label>LinkedIn</label><input type="url" name="linkedin" class="form-control" validate-class="{success: \'has-success\', \'error\': \'has-error\'}" ng-change="$ctrl.updateContact();" ng-model-options="{\n              \'updateOn\': \'default blur\',\n              \'debounce\': {\n                \'default\': 250,\n                \'blur\': 0\n              }\n            }" ng-model="$ctrl.contact.social.linkedin"></div></div></div><div class="row"><div class="col-md-12 navbar navbtn"><button class="btn btn-warning" type="reset"><i class="glyphicon glyphicon-remove"></i> Limpar</button> <button ng-if="$ctrl.isNewContact" class="btn btn-success" ng-disabled="contactDetailForm.$invalid" ng-click="$ctrl.saveContact();"><i class="fa fa-check"></i> Salvar contato</button> <button ng-if="!$ctrl.isNewContact" class="btn btn-danger" ng-click="$ctrl.deleteContact();"><i class="fa fa-trash-o"></i> Apagar contato</button></div></div></form></div>');
 $templateCache.put('./contact-edit.html','<contact-detail contact="$ctrl.contact" on-delete="$ctrl.deleteContact($event)" on-update="$ctrl.updateContact($event)"></contact-detail>');
 $templateCache.put('./contact-new.html','<contact-detail contact="$ctrl.contact" on-save="$ctrl.createNewContact($event);"></contact-detail>');
 $templateCache.put('./contact-tag.html','<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i> Etiqueta</span><div class="btn-group" role="group" aria-label="..."><button type="button" class="btn" ng-click="$ctrl.updateTag(tag);" ng-repeat="tag in $ctrl.tags" ng-class="{\'btn-success\': $ctrl.tag.state == tag.state,\'btn-default\': $ctrl.tag.state != tag.state}"><span ng-class="[tag.icon]"></span> <span ng-bind="tag.label"></span></button></div></div>');
