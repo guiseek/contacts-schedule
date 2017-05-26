@@ -13,7 +13,7 @@ function ContactEditController($state, ContactService, cfpLoadingBar, $window) {
       return ContactService
         .deleteContact(event.contact)
         .then(() => {
-          $state.go('contacts');
+          $state.go('contacts')
         })
     }
   }
@@ -21,4 +21,4 @@ function ContactEditController($state, ContactService, cfpLoadingBar, $window) {
 
 angular
   .module('components.contact')
-  .controller('ContactEditController', ContactEditController);
+  .controller('ContactEditController', ContactEditController)
