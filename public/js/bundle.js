@@ -443,52 +443,6 @@ angular
 })(window.angular);
 (function(angular){
 'use strict';
-let login = {
-  templateUrl: './login.html',
-  controller: 'LoginController'
-}
-
-angular
-  .module('components.auth')
-  .component('login', login)
-  .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('auth.login', {
-        url: '/login',
-        component: 'login'
-      })
-    $urlRouterProvider.otherwise('/auth/login')
-  }])
-})(window.angular);
-(function(angular){
-'use strict';
-LoginController.$inject = ["AuthService", "$state"];
-function LoginController(AuthService, $state) {
-  let ctrl = this
-  ctrl.$onInit = () => {
-    ctrl.error = null
-    ctrl.user = {
-      email: '',
-      password: ''
-    }
-  }
-  ctrl.loginUser = event => {
-    return AuthService
-      .login(event.user)
-      .then(() => {
-        $state.go('app')
-      }, reason => {
-        ctrl.error = reason.message
-      })
-  }
-}
-
-angular
-  .module('components.auth')
-  .controller('LoginController', LoginController)
-})(window.angular);
-(function(angular){
-'use strict';
 let register = {
   templateUrl: './register.html',
   controller: 'RegisterController'
@@ -572,6 +526,52 @@ function ContactController() {
 angular
   .module('components.contact')
   .controller('ContactController', ContactController)
+})(window.angular);
+(function(angular){
+'use strict';
+let login = {
+  templateUrl: './login.html',
+  controller: 'LoginController'
+}
+
+angular
+  .module('components.auth')
+  .component('login', login)
+  .config(["$stateProvider", "$urlRouterProvider", function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+      .state('auth.login', {
+        url: '/login',
+        component: 'login'
+      })
+    $urlRouterProvider.otherwise('/auth/login')
+  }])
+})(window.angular);
+(function(angular){
+'use strict';
+LoginController.$inject = ["AuthService", "$state"];
+function LoginController(AuthService, $state) {
+  let ctrl = this
+  ctrl.$onInit = () => {
+    ctrl.error = null
+    ctrl.user = {
+      email: '',
+      password: ''
+    }
+  }
+  ctrl.loginUser = event => {
+    return AuthService
+      .login(event.user)
+      .then(() => {
+        $state.go('app')
+      }, reason => {
+        ctrl.error = reason.message
+      })
+  }
+}
+
+angular
+  .module('components.auth')
+  .controller('LoginController', LoginController)
 })(window.angular);
 (function(angular){
 'use strict';
