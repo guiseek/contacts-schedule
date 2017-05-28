@@ -13,7 +13,10 @@
         validate-class="{success: 'has-success', 'error': 'has-error'}"
         ng-model="$ctrl.user.email"
         autocomplete="off"
+        autofocus
+        minlength="6"
         required>
+      <validate-messages error="authForm.email" label="e-mail"></validate-messages>
     </div>
     <div class="form-group">
       <label for="password">Senha</label>
@@ -26,6 +29,7 @@
         ng-model="$ctrl.user.password"
         minlength="6"
         required>
+      <validate-messages error="authForm.password" label="senha"></validate-messages>
     </div>
     <div class="text-right">
       <button class="btn btn-warning" type="reset">
