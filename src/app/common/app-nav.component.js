@@ -1,7 +1,8 @@
 let appNav = {
   bindings: {
     user: '<',
-    onLogout: '&'
+    onLogout: '&',
+    onDelete: '&'
   },
   templateUrl: './app-nav.html',
   controller: 'AppNavController'

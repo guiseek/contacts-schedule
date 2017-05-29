@@ -4,7 +4,8 @@
   message="{{ $ctrl.error }}"
   button="Acessar conta"
   reset="Limpar"
-  on-submit="$ctrl.loginUser($event);">
+  on-submit="$ctrl.loginUser($event)"
+  on-google="$ctrl.loginGoogle()">
 </auth-form>
 <div class="alert alert-info">
   <i class="glyphicon glyphicon-exclamation-sign"></i>

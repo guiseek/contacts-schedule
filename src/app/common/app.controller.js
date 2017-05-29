@@ -7,6 +7,11 @@ function AppController(AuthService, $state) {
       $state.go('auth.login')
     })
   }
+  ctrl.delete = function () {
+    AuthService.delete().then(function() {
+      $state.go('auth.login')
+    })
+  }
 }
 
 angular

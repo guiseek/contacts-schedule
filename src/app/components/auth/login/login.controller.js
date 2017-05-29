@@ -16,7 +16,15 @@ function LoginController(AuthService, $state) {
         ctrl.error = reason.message
       })
   }
-}
+  ctrl.loginGoogle = () => {
+    return AuthService
+      .google()
+      .then(() => {
+        $state.go('app')
+      }, reason => {
+        ctrl.error = reason.message
+      })
+  }}
 
 angular
   .module('components.auth')

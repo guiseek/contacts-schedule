@@ -11,6 +11,7 @@ function ContactDetailController() {
     })
   }
   ctrl.updateContact = () => {
+    console.log(ctrl.contact)
     ctrl.onUpdate({
       $event: {
         contact: ctrl.contact

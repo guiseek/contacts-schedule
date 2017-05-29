@@ -3,11 +3,11 @@
     <i class="glyphicon glyphicon-tag"></i>
     Etiqueta
   </span>
-  <div class="btn-group" role="group" aria-label="...">
+  <div class="btn-group" role="group">
     <button
       type="button"
       class="btn"
-      ng-click="$ctrl.updateTag(tag);"
+      ng-click="$ctrl.updateTag(tag)"
       ng-repeat="tag in $ctrl.tags"
       ng-class="{'btn-success': $ctrl.tag.state == tag.state,'btn-default': $ctrl.tag.state != tag.state}">
       <span ng-class="[tag.icon]"></span>

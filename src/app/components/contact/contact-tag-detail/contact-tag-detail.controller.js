@@ -1,4 +1,4 @@
-function ContactTagDetailController($filter, TagService) {
+function ContactTagDetailController($filter, $scope) {
   let ctrl = this
   
   ctrl.normalizeTag = () => {
@@ -14,6 +14,14 @@ function ContactTagDetailController($filter, TagService) {
     {label: 'Olho aberto', class: 'glyphicon glyphicon-eye-open'},
     {label: 'Etiqueta', class: 'glyphicon glyphicon-tag'}
   ]
+  let resetForm = () => {
+    ctrl.contactTagDetailForm.$setPristine()
+  }
+  ctrl.$onChanges = changes => {
+    if (changes.tag.previousValue.$id) {
+      resetForm()
+    }
+  }
   ctrl.saveTag = () => {
     ctrl.onSave({
       $event: {

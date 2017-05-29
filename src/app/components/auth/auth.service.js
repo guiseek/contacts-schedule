@@ -17,10 +17,20 @@ function AuthService($firebaseAuth) {
       .$signInWithEmailAndPassword(user.email, user.password)
       .then(storeAuthData)
   }
+  this.google = function() {
+    return auth
+      .$signInWithPopup('google')
+      .then(storeAuthData)
+  }
   this.register = function (user) {
     return auth
       .$createUserWithEmailAndPassword(user.email, user.password)
       .then(storeAuthData)
+  }
+  this.delete = function () {
+    return auth
+      .$deleteUser()
+        .then(storeAuthData)
   }
   this.logout = function () {
     return auth

@@ -1,5 +1,5 @@
 <div class="tag">
-  <form name="contactTagDetailForm" novalidate>
+  <form name="$ctrl.contactTagDetailForm" novalidate>
     <div class="form-group">
       <label>
         Descrição
@@ -8,9 +8,11 @@
         type="text"
         name="label"
         class="form-control"
+        validation-class
         required
         ng-change="$ctrl.normalizeTag()"
         ng-model="$ctrl.tag.label">
+      <validation-messages field="$ctrl.contactTagDetailForm.label" label="descrição"></validation-messages>
     </div>
     <div class="form-group">
       <label>
@@ -19,17 +21,19 @@
       <select
         name="icon"
         class="form-control"
+        validation-class
         required
         ng-model="$ctrl.tag.icon"
         ng-options="icon.class as icon.label for icon in $ctrl.icons">
       </select>
+      <validation-messages field="$ctrl.contactTagDetailForm.icon" label="ícone"></validation-messages>
     </div>
     <div ng-if="!$ctrl.tag.$id">
       <button
         type="button"
         class="btn btn-success btn-block"
-        ng-disabled="contactTagDetailForm.$invalid"
-        ng-click="$ctrl.saveTag();">
+        ng-disabled="$ctrl.contactTagDetailForm.$invalid"
+        ng-click="$ctrl.saveTag()">
         <i class="fa fa-check"></i>
         Criar tag
       </button>
@@ -40,8 +44,8 @@
           <button
             type="button"
             class="btn btn-success"
-            ng-disabled="contactTagDetailForm.$invalid"
-            ng-click="$ctrl.updateTag();">
+            ng-disabled="$ctrl.contactTagDetailForm.$invalid"
+            ng-click="$ctrl.updateTag()">
             <i class="fa fa-check"></i>
             Alterar
           </button>
@@ -50,7 +54,7 @@
           <button
             type="submit"
             class="btn btn-danger"
-            ng-click="$ctrl.deleteTag();">
+            ng-click="$ctrl.deleteTag()">
             <i class="fa fa-trash-o"></i>
             Apagar
           </button>

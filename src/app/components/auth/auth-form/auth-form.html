@@ -1,4 +1,4 @@
-<form name="authForm" class="panel panel-default" novalidate ng-submit="$ctrl.submitForm();">
+<form name="authForm" class="panel panel-default" novalidate ng-submit="$ctrl.submitForm()">
   <div class="panel-body">
     <div ng-if="$ctrl.message" class="alert alert-danger">
       {{ $ctrl.message }}
@@ -10,13 +10,12 @@
         name="email"
         id="email"
         class="form-control"
-        validate-class="{success: 'has-success', 'error': 'has-error'}"
+        validation-class
         ng-model="$ctrl.user.email"
         autocomplete="off"
         autofocus
-        minlength="6"
         required>
-      <validate-messages error="authForm.email" label="e-mail"></validate-messages>
+      <validation-messages field="authForm.email" label="e-mail"></validation-messages>
     </div>
     <div class="form-group">
       <label for="password">Senha</label>
@@ -25,21 +24,29 @@
         name="password"
         id="password"
         class="form-control"
-        validate-class="{success: 'has-success', 'error': 'has-error'}"
+        validation-class
         ng-model="$ctrl.user.password"
         minlength="6"
         required>
-      <validate-messages error="authForm.password" label="senha"></validate-messages>
+      <validation-messages field="authForm.password" label="senha"></validation-messages>
     </div>
-    <div class="text-right">
-      <button class="btn btn-warning" type="reset">
-        <i class="glyphicon glyphicon-remove"></i>
-        {{ $ctrl.reset }}
+    <div>
+      <button
+        type="button"
+        class="btn btn-danger"
+        ng-click="$ctrl.onGoogle()">
+        <i class="fa fa-google-plus"></i>
       </button>
-      <button class="btn btn-info" type="submit" ng-disabled="authForm.$invalid">
-        <i class="glyphicon glyphicon-ok"></i>
-        {{ $ctrl.button }}
-      </button>
+      <div class="pull-right">
+        <button class="btn btn-warning" type="reset">
+          <i class="glyphicon glyphicon-remove"></i>
+          {{ $ctrl.reset }}
+        </button>
+        <button class="btn btn-info" type="submit" ng-disabled="authForm.$invalid">
+          <i class="glyphicon glyphicon-ok"></i>
+          {{ $ctrl.button }}
+        </button>
+      </div>
     </div>
   </div>
 </form>

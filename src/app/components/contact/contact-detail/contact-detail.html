@@ -1,18 +1,10 @@
 <div class="contact">
   <form name="contactDetailForm" novalidate>
     <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-info">
-          <i class="glyphicon glyphicon-alert"></i>
-          Os campos obrigatórios estão marcados em amarelo.
-        </div>
-      </div>
-    </div>
-    <div class="row">
       <div class="col-md-12 navbar">
         <contact-tag
           tag="$ctrl.contact.tag"
-          on-change="$ctrl.tagChange($event);">
+          on-change="$ctrl.tagChange($event)">
         </contact-tag>
       </div>
     </div>
@@ -27,10 +19,10 @@
             type="text"
             name="name"
             class="form-control"
-            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
+            validation-class
             minlength="8"
             required
-            ng-change="$ctrl.updateContact();"
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -39,7 +31,7 @@
               }
             }"
             ng-model="$ctrl.contact.name">
-          <validate-messages error="contactDetailForm.name" label="nome"></validate-messages>
+          <validation-messages field="contactDetailForm.name" label="nome"></validation-messages>
         </div>
         <div
           class="form-group">
@@ -50,10 +42,10 @@
             type="tel"
             name="phone"
             class="form-control"
-            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
+            validation-class
             minlength="8"
             required
-            ng-change="$ctrl.updateContact();"
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -62,20 +54,20 @@
               }
             }"
             ng-model="$ctrl.contact.phone">
-          <validate-messages error="contactDetailForm.phone" label="telefone"></validate-messages>
+          <validation-messages field="contactDetailForm.phone" label="telefone"></validation-messages>
         </div>
         <div
           class="form-group">
           <label>
-            Email
+            E-mail
           </label>
           <input
             type="email"
             name="email"
             class="form-control"
-            validate-class="{success: 'has-success', error: 'has-error', warning: 'has-warning'}"
+            validation-class
             required
-            ng-change="$ctrl.updateContact();"
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -84,7 +76,7 @@
               }
             }"
             ng-model="$ctrl.contact.email">
-          <validate-messages error="contactDetailForm.email" label="e-mail"></validate-messages>
+          <validation-messages field="contactDetailForm.email" label="e-mail"></validation-messages>
         </div>
         <div class="form-group">
           <label>
@@ -94,7 +86,7 @@
             type="text"
             name="jobTitle"
             class="form-control"
-            ng-change="$ctrl.updateContact();"
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -112,7 +104,7 @@
             type="text"
             name="location"
             class="form-control"
-            ng-change="$ctrl.updateContact();"
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -132,8 +124,8 @@
             type="url"
             name="facebook"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
-            ng-change="$ctrl.updateContact();"
+            validation-class
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -142,6 +134,7 @@
               }
             }"
             ng-model="$ctrl.contact.social.facebook">
+          <validation-messages field="contactDetailForm.facebook" label="facebook"></validation-messages>
         </div>
         <div class="form-group">
           <label>
@@ -151,8 +144,8 @@
             type="url"
             name="google"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
-            ng-change="$ctrl.updateContact();"
+            validation-class
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -161,6 +154,7 @@
               }
             }"
             ng-model="$ctrl.contact.social.google">
+          <validation-messages field="contactDetailForm.google" label="google+"></validation-messages>
         </div>
         <div class="form-group">
           <label>
@@ -170,8 +164,8 @@
             type="url"
             name="github"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
-            ng-change="$ctrl.updateContact();"
+            validation-class
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -180,6 +174,7 @@
               }
             }"
             ng-model="$ctrl.contact.social.github">
+          <validation-messages field="contactDetailForm.github" label="github"></validation-messages>
         </div>
         <div class="form-group">
           <label>
@@ -189,8 +184,8 @@
             type="url"
             name="twitter"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
-            ng-change="$ctrl.updateContact();"
+            validation-class
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -199,6 +194,7 @@
               }
             }"
             ng-model="$ctrl.contact.social.twitter">
+          <validation-messages field="contactDetailForm.twitter" label="twitter"></validation-messages>
         </div>
         <div class="form-group">
           <label>
@@ -208,8 +204,8 @@
             type="url"
             name="linkedin"
             class="form-control"
-            validate-class="{success: 'has-success', 'error': 'has-error'}"
-            ng-change="$ctrl.updateContact();"
+            validation-class
+            ng-change="$ctrl.updateContact()"
             ng-model-options="{
               'updateOn': 'default blur',
               'debounce': {
@@ -218,6 +214,7 @@
               }
             }"
             ng-model="$ctrl.contact.social.linkedin">
+          <validation-messages field="contactDetailForm.linkedin" label="linkedin"></validation-messages>
         </div>
       </div>
     </div>
@@ -231,14 +228,14 @@
           ng-if="$ctrl.isNewContact"
           class="btn btn-success"
           ng-disabled="contactDetailForm.$invalid"
-          ng-click="$ctrl.saveContact();">
+          ng-click="$ctrl.saveContact()">
           <i class="fa fa-check"></i>
           Salvar contato
         </button>
         <button
           ng-if="!$ctrl.isNewContact"
           class="btn btn-danger"
-          ng-click="$ctrl.deleteContact();">
+          ng-click="$ctrl.deleteContact()">
           <i class="fa fa-trash-o"></i>
           Apagar contato
         </button>

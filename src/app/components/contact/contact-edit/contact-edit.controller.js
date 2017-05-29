@@ -8,7 +8,7 @@ function ContactEditController($state, ContactService, cfpLoadingBar, $window) {
       .then(cfpLoadingBar.complete, cfpLoadingBar.complete)
   }
   ctrl.deleteContact = event => {
-    let message = `Delete ${event.contact.name} from contacts?`
+    let message = `Apagar ${event.contact.name} dos contatos?`
     if ($window.confirm(message)) {
       return ContactService
         .deleteContact(event.contact)

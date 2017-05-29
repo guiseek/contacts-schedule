@@ -4,7 +4,8 @@ let authForm = {
     button: '@',
     reset: '@',
     message: '@',
-    onSubmit: '&'
+    onSubmit: '&',
+    onGoogle: '&'
   },
   templateUrl: './auth-form.html',
   controller: 'AuthFormController'
